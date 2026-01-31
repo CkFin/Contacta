@@ -10,7 +10,23 @@ import json
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app)
+
+# Configurar CORS explícitamente para Capacitor
+CORS(app, 
+     origins=["*"],
+     allow_headers=["Content-Type", "Authorization"],
+     methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+     supports_credentials=True,
+     max_age=3600)
+
+# Agregar headers CORS a todas las respuestas
+@app.after_request
+def add_cors_headers(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS'
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
+    response.headers['Access-Control-Max-Age'] = '3600'
+    return response
 
 # Configuración de base de datos desde variables de entorno
 DB_CONFIG = {
