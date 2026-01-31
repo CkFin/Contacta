@@ -72,12 +72,11 @@ export class DataService {
       // Desarrollo en navegador web
       this.apiUrl = 'http://localhost:5000/api';
     } else if (this.isNativeApp()) {
-      // App nativa - usar URL de servidor en nube
-      // CAMBIAR ESTA URL A TU SERVIDOR EN LA NUBE
-      this.apiUrl = 'http://192.168.1.3:5000/api'; // Temporalmente localhost para desarrollo
+      // App nativa - usar URL de servidor en nube (Railway)
+      this.apiUrl = 'https://contacta-production.up.railway.app/api';
     } else {
       // Fallback
-      this.apiUrl = 'http://localhost:5000/api';
+      this.apiUrl = 'https://contacta-production.up.railway.app/api';
     }
     
     console.log('API URL inicializada:', this.apiUrl);
