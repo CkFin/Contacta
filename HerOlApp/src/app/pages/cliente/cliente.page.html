@@ -1,0 +1,147 @@
+<ion-header>
+  <ion-toolbar color="warning">
+    <ion-title>Cliente - HerOol</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="cliente-container">
+  <!-- TAB: INICIO -->
+  <div *ngIf="tabActiva === 'inicio'" class="tab-content">
+    <div class="header-section">
+      <h2>Hola {{ usuario?.nombre }}</h2>
+      <p>¿Qué servicio necesitas?</p>
+    </div>
+
+    <div *ngIf="!mostrarFormulario" class="servicios-grid">
+      <div class="servicio-card" *ngFor="let servicio of servicios" (click)="mostrarFormulario = true; servicioSeleccionado = servicio.id">
+        <div class="servicio-icon">{{ servicio.icono }}</div>
+        <h3>{{ servicio.nombre }}</h3>
+        <p>{{ servicio.descripcion }}</p>
+      </div>
+    </div>
+
+    <div *ngIf="mostrarFormulario" class="formulario-section">
+      <h3>Nuevo pedido</h3>
+      
+      <div class="form-group">
+        <label>Servicio</label>
+        <select [(ngModel)]="servicioSeleccionado" class="select-input">
+          <option value="0" disabled>Selecciona un servicio</option>
+          <option *ngFor="let servicio of servicios" [value]="servicio.id">
+            {{ servicio.icono }} {{ servicio.nombre }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Describe el problema</label>
+        <textarea
+          [(ngModel)]="descripcion"
+          placeholder="Cuéntanos qué necesitas..."
+          rows="4"
+          class="textarea-input"
+        ></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Ubicación</label>
+        <ion-input
+          [(ngModel)]="ubicacion"
+          type="text"
+          placeholder="Tu dirección"
+          clearInput
+        ></ion-input>
+      </div>
+
+      <div *ngIf="error" class="error-message">
+        {{ error }}
+      </div>
+
+      <div class="button-group">
+        <ion-button color="warning" expand="block" (click)="crearSolicitud()" [disabled]="cargando">
+          {{ cargando ? 'Creando...' : 'Crear solicitud' }}
+        </ion-button>
+        <ion-button fill="outline" expand="block" (click)="mostrarFormulario = false">
+          Cancelar
+        </ion-button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: MIS SOLICITUDES -->
+  <div *ngIf="tabActiva === 'solicitudes'" class="tab-content">
+    <h2>Mis solicitudes</h2>
+
+    <div *ngIf="totalOfertas > 0" class="ofertas-alerta">
+      🔔 Tienes {{ totalOfertas }} oferta(s) nueva(s)
+    </div>
+    
+    <div *ngIf="solicitudes.length === 0" class="empty-state">
+      <p>No tienes solicitudes aún</p>
+    </div>
+
+    <ion-card *ngFor="let solicitud of solicitudes" (click)="verSolicitud(solicitud.id!)" class="solicitud-card">
+      <ion-card-content>
+        <div class="solicitud-header">
+          <h3>{{ obtenerNombreServicio(solicitud.servicio_id) }}</h3>
+          <span class="estado-badge" [class]="'estado-' + solicitud.estado">
+            {{ solicitud.estado }}
+          </span>
+        </div>
+        <p class="descripcion">{{ solicitud.descripcion }}</p>
+        <p class="ubicacion">📍 {{ solicitud.ubicacion }}</p>
+        <p class="fecha">{{ solicitud.fecha_creada | date:'short' }}</p>
+
+        <div class="ofertas-section" *ngIf="ofertasPorSolicitud[solicitud.id!]?.length">
+          <h4>Ofertas recibidas</h4>
+          <div class="oferta-item" *ngFor="let oferta of ofertasPorSolicitud[solicitud.id!]">
+            <div class="oferta-header">
+              <strong>{{ oferta.tecnico_nombre }}</strong>
+              <span class="precio">€ {{ oferta.precio }}</span>
+            </div>
+            <p class="oferta-desc">{{ oferta.descripcion || 'Sin descripción' }}</p>
+            <button class="btn-aceptar" (click)="$event.stopPropagation(); aceptarOfertaCliente(oferta.id!)">
+              Aceptar oferta
+            </button>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- TAB: PERFIL -->
+  <div *ngIf="tabActiva === 'perfil'" class="tab-content">
+    <div class="perfil-card">
+      <h2>Mi perfil</h2>
+      <div class="perfil-info">
+        <p><strong>Nombre:</strong> {{ usuario?.nombre }}</p>
+        <p><strong>Email:</strong> {{ usuario?.email }}</p>
+        <p><strong>Teléfono:</strong> {{ usuario?.telefono }}</p>
+        <p><strong>Tipo:</strong> Cliente</p>
+      </div>
+      
+      <ion-button expand="block" color="danger" (click)="logout()">
+        Cerrar sesión
+      </ion-button>
+    </div>
+  </div>
+
+  <!-- TAB BAR -->
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end" *ngIf="tabActiva === 'inicio' && !mostrarFormulario">
+    <ion-fab-button color="warning" (click)="mostrarFormulario = true">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <div class="tab-bar">
+    <button [class.active]="tabActiva === 'inicio'" (click)="cambiarTab('inicio')">
+      🏠 Inicio
+    </button>
+    <button [class.active]="tabActiva === 'solicitudes'" (click)="cambiarTab('solicitudes')">
+      📋 Solicitudes
+    </button>
+    <button [class.active]="tabActiva === 'perfil'" (click)="cambiarTab('perfil')">
+      👤 Perfil
+    </button>
+  </div>
+</ion-content>

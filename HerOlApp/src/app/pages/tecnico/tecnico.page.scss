@@ -1,0 +1,296 @@
+.tecnico-container {
+  --background: #f0f0f0;
+  padding-bottom: 120px;
+}
+
+.header-section {
+  background: linear-gradient(135deg, #ff9500 0%, #ff7f00 100%);
+  color: #fff;
+  padding: 30px 20px;
+  margin-bottom: 20px;
+  border-radius: 0 0 20px 20px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+
+  h2 {
+    margin: 0 0 5px 0;
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  p {
+    margin: 0;
+    opacity: 0.95;
+    color: #fff;
+  }
+}
+
+.tab-content {
+  padding-bottom: 80px;
+}
+
+.solicitud-card {
+  margin: 10px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 8px 16px rgba(255, 149, 0, 0.2);
+    transform: translateY(-3px);
+  }
+
+  .solicitud-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+
+    h3 {
+      margin: 0;
+      color: #333;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .badge-nuevo {
+      background: #ff9500;
+      color: white;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+  }
+
+  .cliente-info {
+    color: #666;
+    margin: 5px 0;
+    font-size: 14px;
+  }
+
+  .descripcion {
+    color: #666;
+    margin: 5px 0;
+  }
+
+  .ubicacion {
+    color: #999;
+    font-size: 14px;
+    margin: 5px 0;
+  }
+
+  .fecha {
+    color: #ccc;
+    font-size: 12px;
+    margin: 10px 0 10px 0;
+  }
+
+  ion-button {
+    margin-top: 10px;
+  }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #999;
+  font-size: 16px;
+}
+
+.formulario-oferta {
+  background: white;
+  padding: 20px;
+  margin: 0 20px 80px 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  h3 {
+    margin-top: 0;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  .solicitud-resumen {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border-left: 4px solid #ff9500;
+
+    h4 {
+      margin: 0 0 10px 0;
+      color: #ff9500;
+    }
+
+    p {
+      margin: 5px 0;
+      color: #666;
+      font-size: 14px;
+    }
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #333;
+      font-size: 14px;
+    }
+
+    .number-input,
+    .textarea-input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 16px;
+
+      &:focus {
+        outline: none;
+        border-color: #ff9500;
+      }
+    }
+
+    .textarea-input {
+      resize: vertical;
+    }
+  }
+
+  .error-message {
+    background: #fee;
+    color: #c33;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    border-left: 4px solid #c33;
+  }
+
+  .button-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+}
+
+.oferta-card {
+  margin: 10px 20px;
+  border-radius: 12px;
+
+  .oferta-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+
+    h3 {
+      margin: 0;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .estado-badge {
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: capitalize;
+
+      &.estado-pendiente {
+        background: #fff3e0;
+        color: #ef6c00;
+      }
+
+      &.estado-aceptada {
+        background: #e8f5e9;
+        color: #2e7d32;
+      }
+
+      &.estado-rechazada {
+        background: #ffebee;
+        color: #c62828;
+      }
+    }
+  }
+
+  .cliente-info,
+  .descripcion,
+  .ubicacion,
+  .precio {
+    color: #666;
+    margin: 4px 0;
+    font-size: 14px;
+  }
+
+  .precio {
+    font-weight: 700;
+    color: #ff9500;
+  }
+}
+
+.perfil-card {
+  background: white;
+  padding: 30px 20px;
+  margin: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  h2 {
+    margin-top: 0;
+    color: #333;
+  }
+
+  .perfil-info {
+    margin: 20px 0;
+
+    p {
+      margin: 12px 0;
+      color: #666;
+
+      strong {
+        color: #333;
+      }
+    }
+  }
+
+  ion-button {
+    margin-top: 20px;
+  }
+}
+
+.tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  background: white;
+  border-top: 1px solid #eee;
+  z-index: 10;
+
+  button {
+    padding: 12px;
+    border: none;
+    background: white;
+    color: #999;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &.active {
+      color: #ff9500;
+      font-weight: 600;
+      border-top: 3px solid #ff9500;
+    }
+
+    &:hover {
+      background: #f9f9f9;
+    }
+  }
+}

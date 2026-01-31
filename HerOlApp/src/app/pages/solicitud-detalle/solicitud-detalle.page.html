@@ -1,0 +1,90 @@
+<ion-header>
+  <ion-toolbar color="warning">
+    <ion-buttons slot="start">
+      <ion-back-button (click)="volver()"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detalle de Solicitud</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="solicitud-detalle-container">
+  <div *ngIf="cargando" class="loading">
+    <p>Cargando...</p>
+  </div>
+
+  <div *ngIf="error && !cargando" class="error-message">
+    {{ error }}
+  </div>
+
+  <div *ngIf="solicitud && !cargando" class="solicitud-info">
+    <ion-card>
+      <ion-card-content>
+        <h2>{{ solicitud.servicio_nombre }}</h2>
+        
+        <div class="info-row">
+          <strong>Estado:</strong>
+          <span class="estado-badge" [class]="'estado-' + solicitud.estado">
+            {{ solicitud.estado }}
+          </span>
+        </div>
+
+        <div class="info-row">
+          <strong>Ubicación:</strong>
+          <span>{{ solicitud.ubicacion }}</span>
+        </div>
+
+        <div class="info-row">
+          <strong>Descripción:</strong>
+          <p>{{ solicitud.descripcion }}</p>
+        </div>
+
+        <div class="info-row">
+          <strong>Fecha:</strong>
+          <span>{{ solicitud.fecha_creada | date:'medium' }}</span>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <div *ngIf="solicitud && !cargando" class="ofertas-section">
+    <h3>Ofertas de técnicos</h3>
+
+    <div *ngIf="ofertas.length === 0" class="empty-state">
+      <p>Aún no hay ofertas para esta solicitud</p>
+      <p class="hint">Los técnicos tendrán la oportunidad de ofertar pronto</p>
+    </div>
+
+    <div *ngFor="let oferta of ofertas" class="oferta-card">
+      <ion-card>
+        <ion-card-content>
+          <div class="oferta-header">
+            <h4>{{ oferta.tecnico_nombre }}</h4>
+            <span class="precio">{{ oferta.precio }}€</span>
+          </div>
+
+          <p class="calificacion">
+            ⭐ {{ oferta.calificacion || '0' }}/5
+          </p>
+
+          <div *ngIf="oferta.descripcion" class="descripcion-oferta">
+            <p>{{ oferta.descripcion }}</p>
+          </div>
+
+          <div class="oferta-footer">
+            <span class="estado-oferta" [class]="'estado-' + oferta.estado">
+              {{ oferta.estado }}
+            </span>
+            <ion-button
+              *ngIf="oferta.estado === 'pendiente'"
+              color="warning"
+              size="small"
+              (click)="aceptarOferta(oferta.id!)"
+            >
+              Aceptar
+            </ion-button>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+</ion-content>

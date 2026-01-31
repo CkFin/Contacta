@@ -1,0 +1,135 @@
+<ion-header>
+  <ion-toolbar color="warning">
+    <ion-title>Técnico - HerOol</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="tecnico-container">
+  <!-- TAB: SOLICITUDES DISPONIBLES -->
+  <div *ngIf="tabActiva === 'solicitudes'" class="tab-content">
+    <div class="header-section">
+      <h2>Hola {{ usuario?.nombre }}</h2>
+      <p>Solicitudes disponibles</p>
+    </div>
+
+    <div *ngIf="solicitudes.length === 0" class="empty-state">
+      <p>No hay solicitudes disponibles en este momento</p>
+    </div>
+
+    <div *ngIf="!mostrarFormularioOferta">
+      <ion-card *ngFor="let solicitud of solicitudes" class="solicitud-card" (click)="seleccionarSolicitud(solicitud)">
+        <ion-card-content>
+          <div class="solicitud-header">
+            <h3>{{ obtenerNombreServicio(solicitud.servicio_id) }}</h3>
+            <span class="badge-nuevo">NUEVO</span>
+          </div>
+          <p class="cliente-info">👤 {{ solicitud.cliente_nombre }}</p>
+          <p class="descripcion">{{ solicitud.descripcion }}</p>
+          <p class="ubicacion">📍 {{ solicitud.ubicacion }}</p>
+          <p class="fecha">Hace poco</p>
+          <ion-button color="warning" expand="block">
+            Ver detalles y ofertar
+          </ion-button>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+    <!-- FORMULARIO DE OFERTA -->
+    <div *ngIf="mostrarFormularioOferta && solicitudSeleccionada" class="formulario-oferta">
+      <h3>Nueva oferta</h3>
+      <div class="solicitud-resumen">
+        <h4>{{ obtenerNombreServicio(solicitudSeleccionada.servicio_id) }}</h4>
+        <p><strong>Cliente:</strong> {{ solicitudSeleccionada.cliente_nombre }}</p>
+        <p><strong>Descripción:</strong> {{ solicitudSeleccionada.descripcion }}</p>
+        <p><strong>Ubicación:</strong> {{ solicitudSeleccionada.ubicacion }}</p>
+      </div>
+
+      <div class="form-group">
+        <label>Tu precio (€)</label>
+        <input
+          type="number"
+          [(ngModel)]="precio"
+          placeholder="Ej: 50"
+          class="number-input"
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Descripción de tu oferta</label>
+        <textarea
+          [(ngModel)]="descripcion"
+          placeholder="Cuéntale al cliente por qué deberían elegirte..."
+          rows="4"
+          class="textarea-input"
+        ></textarea>
+      </div>
+
+      <div *ngIf="error" class="error-message">
+        {{ error }}
+      </div>
+
+      <div class="button-group">
+        <ion-button color="warning" expand="block" (click)="crearOferta()" [disabled]="cargando">
+          {{ cargando ? 'Enviando...' : 'Enviar oferta' }}
+        </ion-button>
+        <ion-button fill="outline" expand="block" (click)="cancelarOferta()">
+          Cancelar
+        </ion-button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: MIS OFERTAS -->
+  <div *ngIf="tabActiva === 'ofertas'" class="tab-content">
+    <h2>Mis ofertas</h2>
+    <div *ngIf="ofertas.length === 0" class="empty-state">
+      <p>No has enviado ofertas aún</p>
+    </div>
+
+    <ion-card *ngFor="let oferta of ofertas" class="oferta-card">
+      <ion-card-content>
+        <div class="oferta-header">
+          <h3>{{ oferta.servicio_nombre }}</h3>
+          <span class="estado-badge" [class]="'estado-' + oferta.estado">
+            {{ oferta.estado }}
+          </span>
+        </div>
+        <p class="cliente-info">👤 {{ oferta.cliente_nombre }}</p>
+        <p class="descripcion">{{ oferta.solicitud_descripcion }}</p>
+        <p class="ubicacion">📍 {{ oferta.ubicacion }}</p>
+        <p class="precio">💶 € {{ oferta.precio }}</p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- TAB: PERFIL -->
+  <div *ngIf="tabActiva === 'perfil'" class="tab-content">
+    <div class="perfil-card">
+      <h2>Mi perfil</h2>
+      <div class="perfil-info">
+        <p><strong>Nombre:</strong> {{ usuario?.nombre }}</p>
+        <p><strong>Email:</strong> {{ usuario?.email }}</p>
+        <p><strong>Teléfono:</strong> {{ usuario?.telefono }}</p>
+        <p><strong>Calificación:</strong> ⭐ {{ usuario?.calificacion || '0' }}/5</p>
+        <p><strong>Tipo:</strong> Técnico</p>
+      </div>
+      
+      <ion-button expand="block" color="danger" (click)="logout()">
+        Cerrar sesión
+      </ion-button>
+    </div>
+  </div>
+
+  <!-- TAB BAR -->
+  <div class="tab-bar">
+    <button [class.active]="tabActiva === 'solicitudes'" (click)="cambiarTab('solicitudes')">
+      📋 Solicitudes
+    </button>
+    <button [class.active]="tabActiva === 'ofertas'" (click)="cambiarTab('ofertas')">
+      💼 Mis ofertas
+    </button>
+    <button [class.active]="tabActiva === 'perfil'" (click)="cambiarTab('perfil')">
+      👤 Perfil
+    </button>
+  </div>
+</ion-content>

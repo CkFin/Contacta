@@ -1,0 +1,343 @@
+.cliente-container {
+  --background: #f0f0f0;
+  padding-bottom: 120px;
+}
+
+.header-section {
+  background: linear-gradient(135deg, #ff9500 0%, #ff7f00 100%);
+  color: #fff;
+  padding: 30px 20px;
+  margin-bottom: 20px;
+  border-radius: 0 0 20px 20px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+
+  h2 {
+    margin: 0 0 5px 0;
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  p {
+    margin: 0;
+    opacity: 0.95;
+    color: #fff;
+  }
+}
+
+.servicios-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 15px;
+  padding: 20px;
+
+  .servicio-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(255, 149, 0, 0.2);
+      background: #fff;
+    }
+
+    .servicio-icon {
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
+
+    h3 {
+      margin: 10px 0 5px 0;
+      color: #222;
+      font-weight: 600;
+    }
+
+    p {
+      margin: 0;
+      font-size: 12px;
+      color: #888;
+    }
+  }
+}
+
+.formulario-section {
+  background: white;
+  padding: 20px;
+  margin: 0 20px 80px 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  h3 {
+    margin-top: 0;
+    color: #333;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #333;
+      font-size: 14px;
+    }
+
+    ion-input {
+      --border-radius: 8px;
+      border: 1px solid #ddd;
+      --padding-start: 12px;
+    }
+
+    .select-input,
+    .textarea-input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 16px;
+
+      &:focus {
+        outline: none;
+        border-color: #ff9500;
+      }
+    }
+
+    .textarea-input {
+      resize: vertical;
+    }
+  }
+
+  .error-message {
+    background: #fee;
+    color: #c33;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    border-left: 4px solid #c33;
+  }
+
+  .button-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+}
+
+.tab-content {
+  padding-bottom: 80px;
+}
+
+.solicitud-card {
+  margin: 10px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 8px 16px rgba(255, 149, 0, 0.2);
+  }
+
+  .solicitud-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+
+    h3 {
+      margin: 0;
+      color: #333;
+      font-size: 18px;
+    }
+
+    .estado-badge {
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: capitalize;
+
+      &.estado-abierta {
+        background: #e3f2fd;
+        color: #1976d2;
+      }
+
+      &.estado-en_progreso {
+        background: #fff3e0;
+        color: #f57c00;
+      }
+
+      &.estado-completada {
+        background: #e8f5e9;
+        color: #388e3c;
+      }
+
+      &.estado-cancelada {
+        background: #fce4ec;
+        color: #c2185b;
+      }
+    }
+  }
+
+  .descripcion {
+    color: #666;
+    margin: 5px 0;
+  }
+
+  .ubicacion {
+    color: #999;
+    font-size: 14px;
+    margin: 5px 0;
+  }
+
+  .fecha {
+    color: #ccc;
+    font-size: 12px;
+    margin: 10px 0 0 0;
+  }
+}
+
+.ofertas-alerta {
+  margin: 10px 20px 0 20px;
+  background: #fff3e0;
+  color: #ef6c00;
+  border: 1px solid #ffe0b2;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.ofertas-section {
+  margin-top: 12px;
+  background: #fafafa;
+  border-radius: 10px;
+  padding: 10px;
+  border: 1px solid #eee;
+
+  h4 {
+    margin: 0 0 8px 0;
+    font-size: 14px;
+    color: #333;
+  }
+
+  .oferta-item {
+    border-top: 1px dashed #e0e0e0;
+    padding-top: 8px;
+    margin-top: 8px;
+
+    &:first-of-type {
+      border-top: none;
+      padding-top: 0;
+      margin-top: 0;
+    }
+
+    .oferta-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+
+      .precio {
+        font-weight: 700;
+        color: #ff9500;
+      }
+    }
+
+    .oferta-desc {
+      margin: 0 0 8px 0;
+      color: #666;
+      font-size: 13px;
+    }
+
+    .btn-aceptar {
+      width: 100%;
+      border: none;
+      background: #ff9500;
+      color: white;
+      padding: 8px 10px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+  }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #999;
+  font-size: 16px;
+}
+
+.perfil-card {
+  background: white;
+  padding: 30px 20px;
+  margin: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  h2 {
+    margin-top: 0;
+    color: #333;
+  }
+
+  .perfil-info {
+    margin: 20px 0;
+
+    p {
+      margin: 12px 0;
+      color: #666;
+
+      strong {
+        color: #333;
+      }
+    }
+  }
+
+  ion-button {
+    margin-top: 20px;
+  }
+}
+
+.tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  background: rgba(255, 255, 255, 0.95);
+  border-top: 1px solid #ddd;
+  z-index: 10;
+  padding-bottom: 20px;
+  padding-top: 8px;
+
+  button {
+    padding: 12px 8px;
+    border: none;
+    background: transparent;
+    color: #666;
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+
+    &.active {
+      color: #ff9500;
+      font-weight: 700;
+      border-top: 3px solid #ff9500;
+    }
+
+    &:hover {
+      color: #ff9500;
+    }
+  }
+}
